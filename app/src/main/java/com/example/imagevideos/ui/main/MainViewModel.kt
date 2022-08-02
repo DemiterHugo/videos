@@ -3,16 +3,18 @@ package com.example.imagevideos.ui.main
 import androidx.lifecycle.*
 import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.model.repositories.ImagesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val imagesRepository: ImagesRepository): ViewModel() {
 
-    private val _state = MutableLiveData(UiState())
-    val state: LiveData<UiState> get(){
-        if (_state.value?.images == null){
-            refresh()
-        }
-        return _state
+    private val _state = MutableStateFlow(UiState())
+    val state: StateFlow<UiState> = _state.asStateFlow()
+
+    init {
+        refresh()
     }
 
     private fun refresh() {
@@ -24,7 +26,7 @@ class MainViewModel(private val imagesRepository: ImagesRepository): ViewModel()
     }
 
     fun onImageClicked(image: ApiImage){
-        _state.value = _state.value?.copy(imageNavigate = image)
+        _state.value = _state.value.copy(imageNavigate = image)
     }
 
     data class UiState(

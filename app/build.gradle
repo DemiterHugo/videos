@@ -62,6 +62,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //para el viewbinding
     implementation 'com.android.databinding:viewbinding:4.0.1'
+    //stateFlow
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
 
 
 }

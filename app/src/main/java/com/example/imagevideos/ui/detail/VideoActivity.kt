@@ -3,11 +3,16 @@ package com.example.imagevideos.ui.detail
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.ActivityVideoBinding
 import com.example.imagevideos.model.repositories.VideosRepository
 import com.example.imagevideos.ui.common.loadUrl
 import com.example.imagevideos.ui.common.visible
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class VideoActivity : AppCompatActivity() {
 
@@ -28,8 +33,12 @@ class VideoActivity : AppCompatActivity() {
 
         binding.idRecyclerVideo.adapter = videoAdapter
 
-        viewModel.state.observe(this){
-            updateUI(it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.state.collect{
+                    updateUI(it)
+                }
+            }
         }
     }
 

@@ -4,11 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.imagevideos.databinding.ActivityMainBinding
 import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.model.repositories.ImagesRepository
 import com.example.imagevideos.ui.common.visible
 import com.example.imagevideos.ui.detail.VideoActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +29,12 @@ class MainActivity : AppCompatActivity() {
         binding.idRecyclerImage.adapter = imageAdapter
 
         //viewModel.state.observe(this,::updateUI)
-        viewModel.state.observe(this){
-            updateUI(it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.state.collect{
+                    updateUI(it)
+                }
+            }
         }
     }
 

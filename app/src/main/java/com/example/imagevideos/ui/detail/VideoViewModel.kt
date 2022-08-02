@@ -4,15 +4,16 @@ import androidx.lifecycle.*
 import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.model.network.apientities.ApiVideo
 import com.example.imagevideos.model.repositories.VideosRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class VideoViewModel(private val image: ApiImage, private val videosRepository: VideosRepository): ViewModel() {
 
-    private val _state = MutableLiveData(UiState(image = image))
-    val state: LiveData<UiState> get(){
-        if(_state.value?.videos == null) refresh()
-    return _state
-    }
+    private val _state = MutableStateFlow(UiState(image = image))
+    val state: StateFlow<UiState> = _state.asStateFlow()
+
 
 
     private fun refresh() {
