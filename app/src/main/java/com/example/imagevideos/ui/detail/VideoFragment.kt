@@ -1,55 +1,52 @@
 package com.example.imagevideos.ui.detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.imagevideos.R
-import com.example.imagevideos.databinding.ActivityVideoBinding
+import com.example.imagevideos.databinding.FragmentVideoBinding
 import com.example.imagevideos.model.repositories.VideosRepository
 import com.example.imagevideos.ui.common.loadUrl
 import com.example.imagevideos.ui.common.visible
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class VideoActivity : AppCompatActivity() {
+class VideoFragment : Fragment(R.layout.fragment_video) {
 
     companion object {
         const val IMAGE = "VideoActivity:image"
     }
     private val viewModel: VideoViewModel by viewModels {
-        VideoViewModelFactory(requireNotNull(intent.getParcelableExtra(IMAGE)), VideosRepository(this))
+        VideoViewModelFactory(requireNotNull(arguments?.getParcelable(IMAGE)), VideosRepository(requireActivity() as AppCompatActivity))
     }
     private val videoAdapter = VideosAdapter()
-    private lateinit var binding: ActivityVideoBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        binding = ActivityVideoBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        val binding = FragmentVideoBinding.bind(view)
         binding.idRecyclerVideo.adapter = videoAdapter
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.state.collect{
-                    updateUI(it)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.state.collect(){
+                    binding.updateUI(it)
                 }
             }
         }
     }
 
-    private fun updateUI(state: VideoViewModel.UiState){
-        with(binding){
+    private fun FragmentVideoBinding.updateUI(state: VideoViewModel.UiState){
+
             idToolbar.title = state.image.tags
             idImageHeader.loadUrl(state.image.previewURL)
             idInfoImage.setImage(state.image)
             idProgressVideo.visible = state.loading
             state.videos?.let { videoAdapter.submitList(it) }
-        }
-
     }
 }
