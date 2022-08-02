@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.FragmentVideoBinding
 import com.example.imagevideos.model.repositories.VideosRepository
@@ -30,6 +31,10 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
 
         val binding = FragmentVideoBinding.bind(view)
         binding.idRecyclerVideo.adapter = videoAdapter
+        binding.idToolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+            //findNavController().popBackStack()
+        }
 
 
         viewLifecycleOwner.lifecycleScope.launch {
