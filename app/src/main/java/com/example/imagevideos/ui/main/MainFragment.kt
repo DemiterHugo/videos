@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.model.repositories.ImagesRepository
 import com.example.imagevideos.ui.common.visible
 import com.example.imagevideos.ui.detail.VideoFragment
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -42,12 +44,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun FragmentMainBinding.updateUI(state: MainViewModel.UiState){
         idProgressImage.visible = state.loading
         state.images?.let{imageAdapter.submitList(it)}
-        state.imageNavigate?.let { navigateTo(it) }
+        state.imageTo?.let {
+            navigateTo(it)
+        }
     }
 
     private fun navigateTo(image: ApiImage){
         val navAction = MainFragmentDirections.actionMainToVideo(image)
         findNavController().navigate(navAction)
-        //findNavController().navigate(R.id.action_main_to_video, bundleOf(VideoFragment.IMAGE to image))
+        viewModel.onNavigationDone()
+    }
+}
+
+
+fun <T>LifecycleOwner.collect(flow: Flow<T>, state: Lifecycle.State = Lifecycle.State.STARTED, body: (T)-> Unit){
+    lifecycleScope.launch {
+        repeatOnLifecycle(state){
+            flow.collect{
+                body(it)
+            }
+        }
     }
 }
