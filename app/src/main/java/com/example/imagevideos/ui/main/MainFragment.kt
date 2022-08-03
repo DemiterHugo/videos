@@ -46,6 +46,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun navigateTo(image: ApiImage){
-        findNavController().navigate(R.id.action_main_to_video, bundleOf(VideoFragment.IMAGE to image))
+        val navAction = MainFragmentDirections.actionMainToVideo(image)
+        findNavController().navigate(navAction)
+        //findNavController().navigate(R.id.action_main_to_video, bundleOf(VideoFragment.IMAGE to image))
     }
 }

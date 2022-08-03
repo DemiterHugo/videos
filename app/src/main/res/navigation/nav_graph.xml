@@ -22,5 +22,9 @@
         android:id="@+id/video_dest"
         android:name="com.example.imagevideos.ui.detail.VideoFragment"
         android:label="fragment_video"
-        tools:layout="@layout/fragment_video" />
+        tools:layout="@layout/fragment_video" >
+        <argument
+            android:name="image"
+            app:argType="com.example.imagevideos.model.network.apientities.ApiImage" />
+    </fragment>
 </navigation>

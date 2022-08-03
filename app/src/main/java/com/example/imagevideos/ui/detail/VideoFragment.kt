@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.FragmentVideoBinding
 import com.example.imagevideos.model.repositories.VideosRepository
@@ -18,11 +19,9 @@ import kotlinx.coroutines.launch
 
 class VideoFragment : Fragment(R.layout.fragment_video) {
 
-    companion object {
-        const val IMAGE = "VideoActivity:image"
-    }
+    private val safeArgs: VideoFragmentArgs by navArgs()
     private val viewModel: VideoViewModel by viewModels {
-        VideoViewModelFactory(requireNotNull(arguments?.getParcelable(IMAGE)), VideosRepository(requireActivity() as AppCompatActivity))
+        VideoViewModelFactory(requireNotNull(safeArgs.image), VideosRepository(requireActivity() as AppCompatActivity))
     }
     private val videoAdapter = VideosAdapter()
 
