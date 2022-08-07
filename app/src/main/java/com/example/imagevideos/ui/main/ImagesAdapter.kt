@@ -11,7 +11,8 @@ import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.ui.common.inflate
 import com.example.imagevideos.ui.common.loadUrl
 
-class ImagesAdapter(private val listener: (ApiImage)-> Unit): ListAdapter<ApiImage,ImagesAdapter.ViewHolderImage>(DiffUtilCallback()) {
+class ImagesAdapter(private val listener: (ApiImage)-> Unit):
+    ListAdapter<ApiImage,ImagesAdapter.ViewHolderImage>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderImage {
         val view = parent.inflate(R.layout.view_image,false)
@@ -34,7 +35,6 @@ class ImagesAdapter(private val listener: (ApiImage)-> Unit): ListAdapter<ApiIma
         }
     }
 }
-
 
 private class DiffUtilCallback: DiffUtil.ItemCallback<ApiImage>() {
     override fun areItemsTheSame(oldItem: ApiImage, newItem: ApiImage): Boolean {

@@ -11,6 +11,6 @@ interface VideoService {
     suspend fun listVideos(
         @Query("key") apiKey: String,
         @Query("q") q: String,
-        //@Query("editors_choice") editor: Boolean
+        @Query("editors_choice") editor: Boolean
     ): ApiResponse<ApiVideo>
 }

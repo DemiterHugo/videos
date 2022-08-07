@@ -14,6 +14,7 @@ class VideoViewModel(private val image: ApiImage, private val videosRepository: 
     private val _state = MutableStateFlow(UiState(image = image))
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+    init { refresh()}
 
 
     private fun refresh() {

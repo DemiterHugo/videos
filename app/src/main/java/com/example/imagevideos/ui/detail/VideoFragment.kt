@@ -20,7 +20,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
 
     private val safeArgs: VideoFragmentArgs by navArgs()
     private val viewModel: VideoViewModel by viewModels {
-        VideoViewModelFactory(requireNotNull(safeArgs.image), VideosRepository(requireActivity() as AppCompatActivity))
+        VideoViewModelFactory(requireNotNull(safeArgs.image), VideosRepository(requireActivity().application))
     }
     private val videoAdapter = VideosAdapter()
 
@@ -33,7 +33,6 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
             requireActivity().onBackPressed()
             //findNavController().popBackStack()
         }
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
