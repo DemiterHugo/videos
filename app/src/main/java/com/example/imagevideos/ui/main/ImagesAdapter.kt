@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.ViewImageBinding
-import com.example.imagevideos.model.network.apientities.ApiImage
+import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.ui.common.inflate
-import com.example.imagevideos.ui.common.loadUrl
 
-class ImagesAdapter(private val listener: (ApiImage)-> Unit):
-    ListAdapter<ApiImage,ImagesAdapter.ViewHolderImage>(DiffUtilCallback()) {
+class ImagesAdapter(private val listener: (Image)-> Unit):
+    ListAdapter<Image,ImagesAdapter.ViewHolderImage>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderImage {
         val view = parent.inflate(R.layout.view_image,false)
@@ -27,21 +26,18 @@ class ImagesAdapter(private val listener: (ApiImage)-> Unit):
 
     class ViewHolderImage(view: View): RecyclerView.ViewHolder(view){
         private val binding = ViewImageBinding.bind(view)
-        fun bind(image: ApiImage) {
-            with(binding){
-                idImageView.loadUrl(image.webformatURL)
-                idTextImage.text = image.tags
-            }
+        fun bind(image: Image) {
+            binding.image = image
         }
     }
 }
 
-private class DiffUtilCallback: DiffUtil.ItemCallback<ApiImage>() {
-    override fun areItemsTheSame(oldItem: ApiImage, newItem: ApiImage): Boolean {
+
+private class DiffUtilCallback: DiffUtil.ItemCallback<Image>() {
+    override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean {
         return oldItem.id == newItem.id
     }
-
-    override fun areContentsTheSame(oldItem: ApiImage, newItem: ApiImage): Boolean {
+    override fun areContentsTheSame(oldItem: Image, newItem: Image): Boolean {
         return oldItem == newItem
     }
 }

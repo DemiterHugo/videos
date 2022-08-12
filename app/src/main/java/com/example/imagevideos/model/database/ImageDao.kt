@@ -13,11 +13,9 @@ interface ImageDao {
     fun findImageById(id: Int): Flow<Image>
 
     @Query("SELECT COUNT(id) FROM Image")
-    fun imageCount():Int
+    suspend fun imageCount():Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertImages(images: List<Image>)
+    suspend fun insertImages(images: List<Image>)
 
-    @Update
-    fun updateImage(image: Image)
 }

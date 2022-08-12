@@ -1,39 +1,40 @@
 package com.example.imagevideos.ui.detail
 
-import androidx.lifecycle.*
-import com.example.imagevideos.model.network.apientities.ApiImage
-import com.example.imagevideos.model.network.apientities.ApiVideo
-import com.example.imagevideos.model.repositories.VideosRepository
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.imagevideos.model.database.Image
+import com.example.imagevideos.model.repositories.ImagesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class VideoViewModel(private val image: ApiImage, private val videosRepository: VideosRepository): ViewModel() {
+class VideoViewModel(
+    private val imageId: Int,
+    private val imagesRepository: ImagesRepository
+): ViewModel() {
 
-    private val _state = MutableStateFlow(UiState(image = image))
+    private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
-    init { refresh()}
-
-
-    private fun refresh() {
+    init {
         viewModelScope.launch {
-            _state.value = UiState(loading = true, image = image)
-            _state.value = UiState(videos = videosRepository.findRelatedVideos(image).hits, image = image)
+            imagesRepository.findImageById(imageId).collect{
+                _state.value = UiState(image = it)
+            }
         }
     }
 
-    data class UiState(
-        val loading: Boolean = false,
-        val videos: List<ApiVideo>?= null,
-        val image: ApiImage
-    )
+    class UiState(val image: Image? = null)
 }
 
 @Suppress("UNCHECKED_CAST")
-class VideoViewModelFactory(private val image: ApiImage, private val videosRepository: VideosRepository): ViewModelProvider.Factory{
+class VideoViewModelFactory(
+    private val imageId: Int,
+    private val imagesRepository: ImagesRepository
+): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return VideoViewModel(image, videosRepository) as T
+        return VideoViewModel(imageId, imagesRepository) as T
     }
 }

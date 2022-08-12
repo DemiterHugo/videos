@@ -5,12 +5,15 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
-import com.example.imagevideos.model.network.apientities.ApiImage
+import com.example.imagevideos.model.database.Image
 
-class InfoImage@JvmOverloads constructor(context: Context, attrs: AttributeSet?=null, deffStyleAttr: Int=0): AppCompatTextView(context, attrs, deffStyleAttr) {
+class InfoImage@JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    deffStyleAttr: Int = 0
+): AppCompatTextView(context, attrs, deffStyleAttr) {
 
-    fun setImage(image: ApiImage){
-        with(image){
+    fun setImage(image: Image)= image.apply{
           text = buildSpannedString {
 
               bold { append("Views: ") }
@@ -25,6 +28,5 @@ class InfoImage@JvmOverloads constructor(context: Context, attrs: AttributeSet?=
               bold { append("Coments: ") }
               appendLine(comments.toString())
           }
-        }
     }
 }

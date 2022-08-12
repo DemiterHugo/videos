@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.model.network.apientities.ApiImage
 import com.example.imagevideos.ui.common.PermissionRequester
 import kotlinx.coroutines.CoroutineScope
@@ -16,8 +17,8 @@ class MainState(
     private val locationPermissionRequest: PermissionRequester
 ) {
 
-     fun onImageClicked(image: ApiImage){
-        val navAction = MainFragmentDirections.actionMainToVideo(image)
+     fun onImageClicked(image: Image){
+        val navAction = MainFragmentDirections.actionMainToVideo(image.id)
         navController.navigate(navAction)
     }
 

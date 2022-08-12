@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.example.imagevideos.App
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +19,7 @@ fun ViewGroup.inflate(layoutRes:Int, attachToRoot: Boolean = true):View{
     return LayoutInflater.from(context).inflate(layoutRes,this,attachToRoot)
 }
 
-inline fun <T>basicDiffUtil(
+/*inline fun <T>basicDiffUtil(
     crossinline areItemsTheSame: (T,T) -> Boolean = { old, new -> old ==new },
     crossinline areContentsTheSame: (T,T) -> Boolean = {old, new -> old == new}
 ): DiffUtil.ItemCallback<T> {
@@ -36,7 +34,7 @@ inline fun <T>basicDiffUtil(
         }
 
     }
-}
+}*/
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).into(this)
@@ -48,7 +46,7 @@ var View.visible: Boolean
         visibility = if (value) View.VISIBLE else View.GONE
     }
 
-fun <T> LifecycleOwner.collect(flow: Flow<T>, state: Lifecycle.State = Lifecycle.State.STARTED, body: (T)-> Unit){
+fun <T> LifecycleOwner.collectFlow(flow: Flow<T>, state: Lifecycle.State = Lifecycle.State.STARTED, body: (T)-> Unit){
     lifecycleScope.launch {
         repeatOnLifecycle(state){
             flow.collect{

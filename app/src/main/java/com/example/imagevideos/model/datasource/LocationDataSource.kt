@@ -1,4 +1,4 @@
-package com.example.imagevideos.model.repositories
+package com.example.imagevideos.model.datasource
 
 import android.annotation.SuppressLint
 import android.app.Application

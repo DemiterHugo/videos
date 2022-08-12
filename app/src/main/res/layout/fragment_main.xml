@@ -1,42 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:statusBarForeground="?attr/colorPrimaryVariant"
-        android:theme="@style/MaterialAlertDialog.Material3.Title.Text">
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.example.imagevideos.model.database.Image"/>
+        <variable
+            name="images"
+            type="List&lt;Image>" />
+        <variable
+            name="loading"
+            type="boolean" />
+    </data>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/id_toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/app_name"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_recyclerImage"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:spanCount="1"/>
+        tools:context=".ui.main.MainFragment">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/id_progressImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/id_recyclerImage"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:statusBarForeground="?attr/colorPrimaryVariant"
+            android:theme="@style/MaterialAlertDialog.Material3.Title.Text">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/id_toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/app_name" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/id_recyclerImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:itemsImage="@{images}"
+            app:spanCount="1" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/id_progressImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:visible="@{loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/id_recyclerImage"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

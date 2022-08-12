@@ -16,7 +16,8 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+        </action>
     </fragment>
     <fragment
         android:id="@+id/video_dest"
@@ -24,7 +25,8 @@
         android:label="fragment_video"
         tools:layout="@layout/fragment_video" >
         <argument
-            android:name="image"
-            app:argType="com.example.imagevideos.model.network.apientities.ApiImage" />
+            android:name="imageId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
 </navigation>

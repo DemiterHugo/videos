@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/id_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/image_type"
-        />
 
-    <TextView
-        android:id="@+id/id_textImage"
+    <data>
+        <import type="com.example.imagevideos.model.database.Image"/>
+        <variable
+            name="image"
+            type="Image" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:paddingTop="8dp"/>
-
-
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="8dp">
+        <ImageView
+            android:id="@+id/id_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:scaleType="centerCrop"
+            app:urlImage="@{image.imageUrl}"
+            android:contentDescription="@string/image_type" />
+        <TextView
+            android:id="@+id/id_textImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:paddingTop="8dp"
+            android:text="@{image.title}"/>
+    </LinearLayout>
+</layout>

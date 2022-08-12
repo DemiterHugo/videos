@@ -1,99 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.detail.VideoFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        android:fitsSystemWindows="true">
-        
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="310dp"
-            app:contentScrim="?attr/colorPrimary"
-            app:statusBarScrim="?attr/colorPrimaryVariant"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.example.imagevideos.model.database.Image"/>
 
-            <ImageView
-                android:id="@+id/id_imageHeader"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                tools:src="@mipmap/ic_launcher"/>
+        <variable
+            name="image"
+            type="Image" />
+    </data>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/id_Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="El titulo"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-        
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:transitionGroup="true">
-
-            <TextView
-                android:id="@+id/id_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="Démiter" />
-
-            <com.example.imagevideos.ui.detail.InfoImage
-                android:id="@+id/id_infoImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:lineSpacingMultiplier="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:background="?attr/colorSurface"
-                tools:text="views"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".ui.detail.VideoFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/id_recyclerVideo"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="1"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:fitsSystemWindows="true">
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/id_progressVideo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/id_recyclerVideo"
-            app:layout_constraintTop_toTopOf="parent"/>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                app:contentScrim="?attr/colorPrimary"
+                app:statusBarScrim="?attr/colorPrimaryVariant"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <ImageView
+                    android:id="@+id/id_imageHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:urlImage="@{image.imageUrl}"
+                    tools:src="@mipmap/ic_launcher"
+                    android:contentDescription="@string/image_type" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/id_Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_arrow_back"
+                    app:title="@{image.title}" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:transitionGroup="true">
+
+                <TextView
+                    android:id="@+id/id_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@{image.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Démiter" />
+
+                <com.example.imagevideos.ui.detail.InfoImage
+                    android:id="@+id/id_infoImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:lineSpacingMultiplier="1"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:background="@color/cardview_dark_background"
+                    app:imageInfo="@{image}"
+                    tools:text="Démiter"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <!--
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/id_recyclerVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:itemsVideo="@{videos}"
+                app:spanCount="1" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/id_progressVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:visible="@{loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/id_recyclerVideo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        -->
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

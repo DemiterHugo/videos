@@ -7,12 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-data class Image(
+data class Video(
     @PrimaryKey(autoGenerate = true)val id: Int,
-    val imageUrl: String,
-    val title: String,
-    val views: Int,
-    val downloads: Int,
-    val likes: Int,
-    val comments: Int
+    val videoUrl: String,
+    val title: String
 ): Parcelable

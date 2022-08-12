@@ -3,7 +3,7 @@ package com.example.imagevideos.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.imagevideos.model.network.apientities.ApiImage
+import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.model.repositories.ImagesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,16 +15,24 @@ class MainViewModel(private val imagesRepository: ImagesRepository): ViewModel()
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+    init {
+        viewModelScope.launch {
+            imagesRepository.getImages.collect{
+                _state.value = UiState(images = it)
+            }
+        }
+    }
+
      fun onUiReady() {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(images = imagesRepository.findImages().hits)
+            imagesRepository.requestImages()
         }
     }
 
     data class UiState(
         val loading: Boolean = false,
-        val images: List<ApiImage>? = null
+        val images: List<Image>? = null
     )
 }
 
