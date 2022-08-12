@@ -26,6 +26,14 @@ class VideoViewModel(
         }
     }
 
+    fun onFavoriteClicked() {
+        viewModelScope.launch {
+            _state.value.image?.let {
+                imagesRepository.switchFavorite(it)  }
+
+        }
+    }
+
     class UiState(val image: Image? = null)
 }
 

@@ -4,7 +4,7 @@ import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.model.database.ImageDao
 import kotlinx.coroutines.flow.Flow
 
-
+//las fuentes de datos deben gestionar sus propios hilos
 class LocalImageDataSource(private val imageDao: ImageDao){
 
     val images: Flow<List<Image>> = imageDao.getImages()

@@ -14,5 +14,6 @@ data class Image(
     val views: Int,
     val downloads: Int,
     val likes: Int,
-    val comments: Int
+    val comments: Int,
+    val favorite: Boolean
 ): Parcelable

@@ -16,13 +16,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
-        <ImageView
-            android:id="@+id/id_imageView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="310dp"
-            android:scaleType="centerCrop"
-            app:urlImage="@{image.imageUrl}"
-            android:contentDescription="@string/image_type" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/id_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:scaleType="centerCrop"
+                app:urlImage="@{image.imageUrl}"
+                android:contentDescription="@string/image_type" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="4dp"
+                android:src="@drawable/ic_favorite_on"
+                app:visible="@{image.favorite}"/>
+        </FrameLayout>
         <TextView
             android:id="@+id/id_textImage"
             android:layout_width="match_parent"

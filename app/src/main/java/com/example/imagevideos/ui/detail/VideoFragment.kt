@@ -24,11 +24,8 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentVideoBinding.bind(view)
-        binding.idToolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()                   //findNavController().popBackStack()
-        }
-        //Log.i("EL VALOR DE IMAGEID","${safeArgs.imageId}")
-
+        binding.idToolbar.setNavigationOnClickListener { requireActivity().onBackPressed()}                   //findNavController().popBackStack() }
+        binding.idImageFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
         viewLifecycleOwner.collectFlow(viewModel.state){
                 if (it.image != null) {
                     binding.image = it.image

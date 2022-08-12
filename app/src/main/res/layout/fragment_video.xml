@@ -19,6 +19,7 @@
         tools:context=".ui.detail.VideoFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/id_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
@@ -86,6 +87,14 @@
                     tools:text="Démiter"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/id_image_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@{image.favorite ? @drawable/ic_favorite_on : @drawable/ic_favorite_off }"
+            app:layout_anchor="@id/id_appBarLayout"
+            app:layout_anchorGravity="bottom|end" />
         <!--
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

@@ -32,6 +32,11 @@ class ImagesRepository(application: App) {
             localImageDataSource.save(images.hits.map { it.toLocalImage() })
         }
     }
+
+    suspend fun switchFavorite(image: Image) {
+        val updateImage = image.copy(favorite = !image.favorite)
+        localImageDataSource.save(listOf(updateImage))
+    }
 }
 
 
@@ -45,6 +50,6 @@ private fun ApiImage.toLocalImage(): Image = Image(
     views = views,
     downloads = downloads,
     likes = likes,
-    comments = comments
-
+    comments = comments,
+    favorite = false
 )
