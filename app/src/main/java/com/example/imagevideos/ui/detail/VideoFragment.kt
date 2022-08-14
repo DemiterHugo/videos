@@ -8,6 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.FragmentVideoBinding
+import com.example.imagevideos.domain.FindImagesByIdUseCase
+import com.example.imagevideos.domain.SwitchImageFavoriteUseCase
 import com.example.imagevideos.model.repositories.ImagesRepository
 import com.example.imagevideos.ui.common.app
 import com.example.imagevideos.ui.common.collectFlow
@@ -16,8 +18,11 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
 
     private val safeArgs: VideoFragmentArgs by navArgs()
     private val viewModel: VideoViewModel by viewModels {
+        val imagesRepository = ImagesRepository(requireActivity().app)
         VideoViewModelFactory(
-            safeArgs.imageId, ImagesRepository(requireActivity().app)
+            safeArgs.imageId,
+            FindImagesByIdUseCase(imagesRepository),
+            SwitchImageFavoriteUseCase(imagesRepository)
         )
     }
 
