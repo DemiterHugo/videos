@@ -2,10 +2,12 @@ package com.example.imagevideos.model.repositories
 
 import com.example.imagevideos.App
 import com.example.imagevideos.R
+import com.example.imagevideos.model.Error
 import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.model.datasource.LocalImageDataSource
 import com.example.imagevideos.model.datasource.RemoteImageDataSource
 import com.example.imagevideos.model.network.apientities.ApiImage
+import com.example.imagevideos.model.tryCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -26,14 +28,14 @@ class ImagesRepository(application: App) {
         return localImageDataSource.findImageById(id)
     }
 
-    suspend fun requestImages(){
+    suspend fun requestImages(): Error? = tryCall{
         if (localImageDataSource.isEmpty()){
             val images = remoteImageDataSource.findImages(regionRepository.findLastRegion())
             localImageDataSource.save(images.hits.map { it.toLocalImage() })
         }
     }
 
-    suspend fun switchFavorite(image: Image) {
+    suspend fun switchFavorite(image: Image): Error? = tryCall {
         val updateImage = image.copy(favorite = !image.favorite)
         localImageDataSource.save(listOf(updateImage))
     }

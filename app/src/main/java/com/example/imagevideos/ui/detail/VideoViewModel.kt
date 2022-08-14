@@ -3,11 +3,11 @@ package com.example.imagevideos.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.imagevideos.model.Error
 import com.example.imagevideos.model.database.Image
 import com.example.imagevideos.model.repositories.ImagesRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.example.imagevideos.model.toError
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class VideoViewModel(
@@ -20,21 +20,24 @@ class VideoViewModel(
 
     init {
         viewModelScope.launch {
-            imagesRepository.findImageById(imageId).collect{
-                _state.value = UiState(image = it)
+            imagesRepository.findImageById(imageId)
+                .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
+                .collect{ image -> _state.update { UiState(image = image) }}
             }
-        }
     }
+
 
     fun onFavoriteClicked() {
         viewModelScope.launch {
             _state.value.image?.let {
-                imagesRepository.switchFavorite(it)  }
+                val error = imagesRepository.switchFavorite(it)
+            _state.update{it.copy(error= error)}
 
+        }
         }
     }
 
-    class UiState(val image: Image? = null)
+    data class UiState(val image: Image? = null, val error: Error? = null)
 }
 
 @Suppress("UNCHECKED_CAST")

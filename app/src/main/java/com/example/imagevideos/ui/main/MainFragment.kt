@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.FragmentMainBinding
+import com.example.imagevideos.model.Error
 import com.example.imagevideos.model.repositories.ImagesRepository
 import com.example.imagevideos.ui.common.app
 import com.example.imagevideos.ui.common.collectFlow
@@ -28,12 +29,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewLifecycleOwner.collectFlow(viewModel.state){
             binding.loading = it.loading
             binding.images = it.images
+            binding.error = it.error?.let {
+                mainState.errorToString(it)
+            }
         }
 
         mainState.requestLocationPermission {
             viewModel.onUiReady()
         }
     }
+
+
 }
 
 

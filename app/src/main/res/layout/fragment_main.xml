@@ -12,6 +12,9 @@
         <variable
             name="loading"
             type="boolean" />
+        <variable
+            name="error"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -40,6 +43,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:itemsImage="@{images}"
+            app:visible="@{error == null}"
             app:spanCount="1" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -52,5 +56,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/id_recyclerImage"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="?attr/colorError"
+            android:text="@{error}"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
