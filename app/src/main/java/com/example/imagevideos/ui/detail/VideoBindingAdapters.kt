@@ -1,7 +1,7 @@
 package com.example.imagevideos.ui.detail
 
 import androidx.databinding.BindingAdapter
-import com.example.imagevideos.model.database.Image
+import com.example.imagevideos.domain.Image
 
 
 @BindingAdapter("imageInfo")

@@ -3,12 +3,11 @@ package com.example.imagevideos.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.imagevideos.domain.FindImagesByIdUseCase
-import com.example.imagevideos.domain.SwitchImageFavoriteUseCase
-import com.example.imagevideos.model.Error
-import com.example.imagevideos.model.database.Image
-import com.example.imagevideos.model.repositories.ImagesRepository
-import com.example.imagevideos.model.toError
+import com.example.imagevideos.domain.toError
+import com.example.imagevideos.domain.Error
+import com.example.imagevideos.domain.Image
+import com.example.imagevideos.usecases.FindImagesByIdUseCase
+import com.example.imagevideos.usecases.SwitchImageFavoriteUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

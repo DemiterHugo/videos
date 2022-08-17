@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.ViewVideoBinding
-import com.example.imagevideos.model.database.Video
+import com.example.imagevideos.framework.database.Video
 import com.example.imagevideos.ui.common.inflate
 
 class VideosAdapter: ListAdapter<Video, VideosAdapter.ViewHolderVideo>(DiffUtilCallback()) {

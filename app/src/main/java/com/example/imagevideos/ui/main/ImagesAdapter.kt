@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagevideos.R
 import com.example.imagevideos.databinding.ViewImageBinding
-import com.example.imagevideos.model.database.Image
+import com.example.imagevideos.domain.Image
 import com.example.imagevideos.ui.common.inflate
 
 class ImagesAdapter(private val listener: (Image)-> Unit):

@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
-import com.example.imagevideos.model.database.Image
+import com.example.imagevideos.domain.Image
 
 class InfoImage@JvmOverloads constructor(
     context: Context,

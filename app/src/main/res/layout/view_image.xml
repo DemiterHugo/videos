@@ -5,7 +5,7 @@
 
 
     <data>
-        <import type="com.example.imagevideos.model.database.Image"/>
+        <import type="com.example.imagevideos.domain.Image"/>
         <variable
             name="image"
             type="Image" />

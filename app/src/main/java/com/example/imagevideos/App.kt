@@ -2,7 +2,7 @@ package com.example.imagevideos
 
 import android.app.Application
 import androidx.room.Room
-import com.example.imagevideos.model.database.DataBaseR
+import com.example.imagevideos.framework.database.DataBaseR
 
 class App: Application() {
 

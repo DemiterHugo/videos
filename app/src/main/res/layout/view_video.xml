@@ -4,7 +4,7 @@
 
 
 <data>
-        <import type="com.example.imagevideos.model.database.Video"/>
+        <import type="com.example.imagevideos.framework.database.Video"/>
         <variable
             name="video"
             type="Video" />
