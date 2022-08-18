@@ -3,11 +3,11 @@ package com.example.imagevideos.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.imagevideos.data.toError
 import com.example.imagevideos.usecases.GetImagesUseCase
 import com.example.imagevideos.usecases.RequestImagesUseCase
-import com.example.imagevideos.domain.Image
-import com.example.imagevideos.domain.toError
 import com.example.imagevideos.domain.Error
+import com.example.imagevideos.domain.Image
 
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -30,9 +30,9 @@ class MainViewModel(
 
      fun onUiReady() {
         viewModelScope.launch {
-            _state.value = UiState(loading = true)
+            _state.value = _state.value.copy(loading = true)
             val error = requestImagesUseCase()
-            _state.update { it.copy(loading = false, error = error)}
+            _state.update { _state.value.copy(loading = false, error = error)}
         }
     }
 

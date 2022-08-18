@@ -5,11 +5,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.imagevideos.R
+import com.example.imagevideos.data.AndroidPermissionChecker
+import com.example.imagevideos.data.PlayServicesLocationDataSource
 import com.example.imagevideos.data.repositories.ImagesRepository
 import com.example.imagevideos.data.repositories.RegionRepository
 import com.example.imagevideos.databinding.FragmentMainBinding
-import com.example.imagevideos.framework.database.RoomImageDataSource
-import com.example.imagevideos.framework.server.ServerImageDataSource
+import com.example.imagevideos.data.database.RoomImageDataSource
+import com.example.imagevideos.data.server.ServerImageDataSource
 import com.example.imagevideos.ui.common.app
 import com.example.imagevideos.ui.common.collectFlow
 import com.example.imagevideos.usecases.GetImagesUseCase
@@ -18,7 +20,8 @@ import com.example.imagevideos.usecases.RequestImagesUseCase
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
-        val regionRepository = RegionRepository(requireActivity().app)
+        val application = requireActivity().app
+        val regionRepository = RegionRepository(PlayServicesLocationDataSource(application),AndroidPermissionChecker(application))
         val localImageDataSource = RoomImageDataSource(requireActivity().app.db.imageDao())
         val remoteImageDataSource = ServerImageDataSource(getString(R.string.api_key),getString(R.string.image_type),true)
         val repository = ImagesRepository(regionRepository,localImageDataSource,remoteImageDataSource)
