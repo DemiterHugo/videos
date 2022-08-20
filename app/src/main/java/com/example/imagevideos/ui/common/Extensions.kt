@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -58,3 +59,6 @@ fun <T> LifecycleOwner.collectFlow(flow: Flow<T>, state: Lifecycle.State = Lifec
 
 val Context.app: App
     get() = applicationContext as App
+
+val Fragment.app: App
+    get() = requireContext().app

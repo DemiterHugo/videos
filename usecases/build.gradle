@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 java {
@@ -13,5 +14,5 @@ dependencies{
     implementation project(':domain')
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
-
+    implementation "javax.inject:javax.inject:1"
 }

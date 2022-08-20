@@ -4,21 +4,23 @@ import arrow.core.Either
 import com.example.imagevideos.data.datasource.RemoteImageDataSource
 import com.example.imagevideos.data.server.apientities.ApiImage
 import com.example.imagevideos.data.tryCall
+import com.example.imagevideos.di.ApiKey
 import com.example.imagevideos.domain.Error
 import com.example.imagevideos.domain.Image
+import javax.inject.Inject
 
 
-class ServerImageDataSource(
-    private val apiKey: String,
-    private val imageType: String,
-    private val editor: Boolean
+class ServerImageDataSource @Inject constructor(
+    @ApiKey private val apiKey: String,
+      //val imageType: String,
+      //val editor: Boolean = true
 ) : RemoteImageDataSource {
 
     override suspend fun findImages(region: String): Either<Error,List<Image>> = tryCall{
         ApiClient.imageService.listImages(
             apiKey,
-            imageType,
-            editor,
+            //imageType,
+            //editor,
             region
         ).hits.toDomainImage()
     }

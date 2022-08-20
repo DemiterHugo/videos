@@ -10,8 +10,8 @@ interface ImageService {
     @GET("api/")
     suspend fun listImages(
         @Query("key") apiKey: String,
-        @Query("image_type") imageType: String,
-        @Query("editors_choice") editor: Boolean,
+        //@Query("image_type") imageType: String,
+        //@Query("editors_choice") editor: Boolean,
         @Query("lang") lang: String
     ): ApiResponse<ApiImage>
 }

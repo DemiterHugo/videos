@@ -8,12 +8,15 @@ import com.example.imagevideos.usecases.GetImagesUseCase
 import com.example.imagevideos.usecases.RequestImagesUseCase
 import com.example.imagevideos.domain.Error
 import com.example.imagevideos.domain.Image
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
-    private val getImagesUseCase: GetImagesUseCase,
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    getImagesUseCase: GetImagesUseCase,
     private val requestImagesUseCase: RequestImagesUseCase
 ): ViewModel() {
 
@@ -42,15 +45,3 @@ class MainViewModel(
         val error: Error? = null
     )
 }
-
-@Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(
-    private val getImagesUseCase: GetImagesUseCase,
-    private val requestImagesUseCase: RequestImagesUseCase
-): ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(getImagesUseCase, requestImagesUseCase) as T
-    }
-}
-
-

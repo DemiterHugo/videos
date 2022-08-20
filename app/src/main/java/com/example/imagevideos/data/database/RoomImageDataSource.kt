@@ -7,11 +7,11 @@ import com.example.imagevideos.data.database.Image as ImageDB
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import com.example.imagevideos.domain.Image
-
+import javax.inject.Inject
 
 
 //las fuentes de datos deben gestionar sus propios hilos
-class RoomImageDataSource(private val imageDao: ImageDao) : LocalImageDataSource {
+class RoomImageDataSource @Inject constructor(private val imageDao: ImageDao) : LocalImageDataSource {
 
     override val images: Flow<List<Image>> = imageDao.getImages().map { it.toDomainImage() }
 

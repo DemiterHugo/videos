@@ -16,20 +16,12 @@ import com.example.imagevideos.ui.common.app
 import com.example.imagevideos.ui.common.collectFlow
 import com.example.imagevideos.usecases.GetImagesUseCase
 import com.example.imagevideos.usecases.RequestImagesUseCase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private val viewModel: MainViewModel by viewModels {
-        val application = requireActivity().app
-        val regionRepository = RegionRepository(PlayServicesLocationDataSource(application),AndroidPermissionChecker(application))
-        val localImageDataSource = RoomImageDataSource(requireActivity().app.db.imageDao())
-        val remoteImageDataSource = ServerImageDataSource(getString(R.string.api_key),getString(R.string.image_type),true)
-        val repository = ImagesRepository(regionRepository,localImageDataSource,remoteImageDataSource)
-        MainViewModelFactory(
-            GetImagesUseCase(repository),
-            RequestImagesUseCase(repository)
-        )
-    }
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var mainState: MainState
     private val imageAdapter = ImagesAdapter{ mainState.onImageClicked(it)}
 

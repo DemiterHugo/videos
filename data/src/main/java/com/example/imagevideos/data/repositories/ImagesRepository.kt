@@ -5,8 +5,9 @@ import com.example.imagevideos.data.datasource.RemoteImageDataSource
 import com.example.imagevideos.domain.Error
 import com.example.imagevideos.domain.Image
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ImagesRepository(
+class ImagesRepository @Inject constructor(
     private val regionRepository: RegionRepository,
     private val localImageDataSource: LocalImageDataSource,
     private val remoteImageDataSource: RemoteImageDataSource
@@ -31,9 +32,3 @@ class ImagesRepository(
         return localImageDataSource.save(listOf(updateImage))
     }
 }
-
-/*
-ServerImageDataSource(
-apiKey = application.getString(R.string.api_key),
-imageType = application.getString(R.string.image_type),
-editor = true, */

@@ -7,11 +7,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.imagevideos.R
+import com.example.imagevideos.domain.Error
 import com.example.imagevideos.domain.Image
 import com.example.imagevideos.ui.common.PermissionRequester
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.example.imagevideos.domain.Error
 
 class MainState(
     private val context: Context,
