@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.imagevideos.data.toError
+import com.example.imagevideos.di.ImageId
 import com.example.imagevideos.domain.Error
 import com.example.imagevideos.domain.Image
 import com.example.imagevideos.usecases.FindImagesByIdUseCase
@@ -15,12 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VideoViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    @ImageId private val imageId: Int,
     findImagesByIdUseCase: FindImagesByIdUseCase,
     private val switchImageFavoriteUseCase: SwitchImageFavoriteUseCase
 ): ViewModel() {
-
-    private val imageId = VideoFragmentArgs.fromSavedStateHandle(savedStateHandle).imageId
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()

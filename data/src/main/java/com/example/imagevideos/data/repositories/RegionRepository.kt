@@ -11,7 +11,7 @@ class RegionRepository @Inject constructor(
 ) {
 
     companion object{
-        private const val DEFAULT_REGION = "en"
+        const val DEFAULT_REGION = "en"
     }
 
     suspend fun findLastRegion(): String {

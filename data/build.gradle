@@ -16,4 +16,8 @@ dependencies{
     //use of Either
     implementation "io.arrow-kt:arrow-core:1.0.1"
     implementation "javax.inject:javax.inject:1"
+
+    implementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    implementation "org.mockito:mockito-inline:4.4.0"
+    testImplementation 'junit:junit:4.13.2'
 }
